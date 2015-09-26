@@ -9,7 +9,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="matchup in matchups">
+			<tr ng-repeat="matchup in matchups" ng-click="openDetails($index)">
 				<td>{{matchup.red_world}}</td>
 				<td>{{matchup.blue_world}}</td>
 				<td>{{matchup.green_world}}</td>
