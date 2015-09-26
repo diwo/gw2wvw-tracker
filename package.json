@@ -1,0 +1,24 @@
+{
+  "name": "gw2wvw-tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/server/index.js",
+  "scripts": {
+    "gulp": "gulp",
+    "test": "gulp test",
+    "dev": "gulp nodemon"
+  },
+  "author": "Dickson Wong",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-jshint": "^1.11.2",
+    "gulp-nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "ejs": "^2.3.4",
+    "express": "^4.13.3",
+    "request": "^2.64.0",
+    "underscore": "^1.8.3"
+  }
+}
