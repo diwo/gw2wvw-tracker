@@ -1,27 +1,12 @@
 <!doctype html>
 <html>
 	<head>
-		<% include partials/head %>
+		<title><%=title%></title>
+		<script data-main="<%=js%>" src="/vendor/require.js"></script>
+		<script src="/js/require.config.js"></script>
+		<link rel="stylesheet" type="text/css" href="/vendor/bootstrap-3.3.5-dist/css/bootstrap.css">
 	</head>
 	<body>
-		<div class="container-fluid" ng-controller="MatchupsCtrl">
-			<h1>GW2 WvW Tracker</h1>
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th>Red World</th>
-						<th>Blue World</th>
-						<th>Green World</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="matchup in matchups">
-						<td>{{matchup.red_world}}</td>
-						<td>{{matchup.blue_world}}</td>
-						<td>{{matchup.green_world}}</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+		<div ng-view></div>
 	</body>
 </html>

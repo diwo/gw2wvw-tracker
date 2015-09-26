@@ -1,0 +1,19 @@
+<div class="container-fluid" ng-controller="MatchupsCtrl">
+	<h1>GW2 WvW Tracker</h1>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Red World</th>
+				<th>Blue World</th>
+				<th>Green World</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="matchup in matchups">
+				<td>{{matchup.red_world}}</td>
+				<td>{{matchup.blue_world}}</td>
+				<td>{{matchup.green_world}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
