@@ -12,8 +12,10 @@
   "license": "MIT",
   "devDependencies": {
     "gulp": "^3.9.0",
+    "gulp-jasmine": "^2.1.0",
     "gulp-jshint": "^1.11.2",
-    "gulp-nodemon": "^2.0.4"
+    "gulp-nodemon": "^2.0.4",
+    "proxyquire": "^1.7.2"
   },
   "dependencies": {
     "ejs": "^2.3.4",
