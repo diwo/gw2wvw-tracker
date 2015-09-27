@@ -1,4 +1,4 @@
-.pptContainer {
+.scoreContainer {
 	margin-top: 30px;
 }
 
@@ -7,6 +7,15 @@
 }
 .worldColors dd {
 	margin-left: 120px;
+}
+.worldColors .red {
+	color: #f7464a;
+}
+.worldColors .blue {
+	color: #6295d9;
+}
+.worldColors .green {
+	color: #49b377;
 }
 
 .updateBox {

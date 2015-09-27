@@ -11,7 +11,15 @@ const MATCHES = {
       green_world_id: 1002,
       start_time: '2015-09-25T18:00:00Z',
       end_time: '2015-10-02T18:00:00Z'
-    }
+    },
+    {
+      wvw_match_id: '2-3',
+      red_world_id: 1010,
+      blue_world_id: 1011,
+      green_world_id: 1012,
+      start_time: '2015-09-25T18:00:00Z',
+      end_time: '2015-10-02T18:00:00Z'
+    },
   ]
 };
 
@@ -27,7 +35,7 @@ var wvw_matches = proxyquire('../lib/server/gw2/wvw_matches', {
 });
 
 describe('wvw_matches.list()', () => {
-  it('Resolved matches contain names for red/blue/green worlds', done => {
+  it('Resolves to matches containing names for red/blue/green worlds', done => {
     wvw_matches.list()
       .then(
         matches => {
@@ -35,6 +43,26 @@ describe('wvw_matches.list()', () => {
           expect(matches[0].blue_world).toBe('Sapphire');
           expect(matches[0].green_world).toBe('Emerald');
         },
+        error => { expect(error).toBeUndefined(); }
+      )
+      .then(done);
+  });
+});
+
+describe('wvw_matches.get(matchId)', () => {
+  it('Resolves to a single match with the given match ID', done => {
+    wvw_matches.get('2-3')
+      .then(
+        match => { expect(match.wvw_match_id).toBe('2-3'); },
+        error => { expect(error).toBeUndefined(); }
+      )
+      .then(done);
+  });
+
+  it('Resolves to undefined when the given ID cannot be found', done => {
+    wvw_matches.get('derp')
+      .then(
+        match => { expect(match).toBeUndefined(); },
         error => { expect(error).toBeUndefined(); }
       )
       .then(done);
