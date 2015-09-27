@@ -3,27 +3,43 @@
 var proxyquire = require('proxyquire').noPreserveCache();
 
 const URLs = {
-  success: 'success',
+  ok: 'ok',
+  notFound: 'notFound',
   failure: 'failure'
 };
 
 const RESPONSE = {
-  success: {
+  ok: {
+    error: null,
+    statusCode: 200,
     body: 'body'
+  },
+  notFound: {
+    error: null,
+    statusCode: 404
   },
   failure: {
     error: Error('error')
   }
 };
 
+const AJAX_DELAY = 200;
+
 var ajax = proxyquire('../lib/server/utils/ajax', {
   request: function(url, cb) {
     switch(url) {
-      case URLs.success:
-        setTimeout(() => { cb(null, {}, RESPONSE.success.body); }, 200);
+      case URLs.ok:
+        setTimeout(() => {
+          cb(RESPONSE.ok.error, { statusCode: RESPONSE.ok.statusCode }, RESPONSE.ok.body);
+        }, AJAX_DELAY);
+        break;
+      case URLs.notFound:
+        setTimeout(() => {
+          cb(RESPONSE.notFound.error, { statusCode: RESPONSE.notFound.statusCode }, RESPONSE.notFound.body);
+        }, AJAX_DELAY);
         break;
       case URLs.failure:
-        setTimeout(() => { cb(RESPONSE.failure.error); }, 200);
+        setTimeout(() => { cb(RESPONSE.failure.error); }, AJAX_DELAY);
         break;
       default:
         throw Error('Unhandled test case');
@@ -33,10 +49,19 @@ var ajax = proxyquire('../lib/server/utils/ajax', {
 
 describe('ajax()', () => {
   it('Resolves to response body when request is successful', done => {
-    ajax(URLs.success)
+    ajax(URLs.ok)
       .then(
-        body => { expect(body).toBe(RESPONSE.success.body); },
+        body => { expect(body).toBe(RESPONSE.ok.body); },
         error => { expect(error).toBeUndefined(); }
+      )
+      .then(done);
+  });
+
+  it('Rejects with status code when request url is not found', done => {
+    ajax(URLs.notFound)
+      .then(
+        () => { done.fail('ajax() resolved instead of reject'); },
+        statusCode => { expect(statusCode).toBe(RESPONSE.notFound.statusCode); }
       )
       .then(done);
   });
