@@ -1,0 +1,31 @@
+.pptContainer {
+	margin-top: 30px;
+}
+
+.worldColors dt {
+	width: 100px;
+}
+.worldColors dd {
+	margin-left: 120px;
+}
+
+.updateBox {
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	background-color: #fafafa;
+	height: 400px;
+	overflow: scroll;
+}
+
+.updateBox li {
+	padding: 1px 10px;
+}
+.updateBox li.red {
+	background-color: #edbbbb;
+}
+.updateBox li.blue {
+	background-color: #9acbe3;
+}
+.updateBox li.green {
+	background-color: #bee39a;
+}

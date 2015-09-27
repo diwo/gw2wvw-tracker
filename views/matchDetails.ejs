@@ -1,4 +1,31 @@
-<div class="container-fluid" ng-controller="MatchDetailsCtrl">
-	<h1>GW2 WvW Match Details</h1>
-	<p>Match ID: {{matchId}}</p>
+<div class="container" ng-controller="MatchDetailsCtrl">
+	<h1>Match Details</h1>
+
+	<div class="row">
+		<div class="col-sm-6">
+			<dl class="worldColors dl-horizontal">
+				<dt>Red</dt>
+				<dd>{{red_name}}</dd>
+				<dt>Blue</dt>
+				<dd>{{blue_name}}</dd>
+				<dt>Green</dt>
+				<dd>{{green_name}}</dd>
+			</dl>
+
+			<div class="pptContainer">
+				<h3>Points per Tick</h3>
+				<canvas class="chart chart-pie" chart-colours="chartColours" chart-legend="true"
+					chart-data="chartData" chart-labels="chartLabels"></canvas>
+			</div>
+		</div>
+
+		<div class="col-sm-6">
+			<h4>Status updates</h4>
+			<ol class="updateBox list-unstyled">
+				<li ng-repeat="update in updates" class="{{update.color}}">
+					{{update.world}} has captured {{update.objective}} on {{update.map}}!
+				</li>
+			</ol>
+		</div>
+	</div>
 </div>
