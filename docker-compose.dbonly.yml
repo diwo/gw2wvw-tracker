@@ -1,0 +1,8 @@
+db:
+  image: mongo:3.0
+  volumes_from: [ dbdata ]
+  ports: [ "27017:27017" ]
+dbdata:
+  image: busybox
+  volumes: [ "/data/db" ]
+  command: "true"

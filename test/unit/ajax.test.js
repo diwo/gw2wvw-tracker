@@ -25,7 +25,7 @@ const RESPONSE = {
 
 const AJAX_DELAY = 200;
 
-var ajax = proxyquire('../lib/server/utils/ajax', {
+var ajax = proxyquire('../../lib/server/utils/ajax', {
   request: function(url, cb) {
     switch(url) {
       case URLs.ok:

@@ -29,7 +29,7 @@ const WORLD_NAMES = {
   1002: 'Emerald'
 };
 
-var wvw_matches = proxyquire('../lib/server/gw2/wvw_matches', {
+var wvw_matches = proxyquire('../../lib/server/gw2/wvw_matches', {
   '../utils/ajax': () => Promise.resolve(JSON.stringify(MATCHES)),
   './world_names': { getName: id => WORLD_NAMES[id] }
 });

@@ -1,0 +1,6 @@
+{
+	"port": 8080,
+	"db_host": "dbox",
+	"db_port": "27017",
+	"db_name": "gw2wvwTracker"
+}

@@ -14,7 +14,7 @@ const MATCH = {
   green_world: 'Emerald'
 };
 
-var wvw_match_details = proxyquire('../lib/server/gw2/wvw_match_details', {
+var wvw_match_details = proxyquire('../../lib/server/gw2/wvw_match_details', {
   '../utils/ajax': url =>
     url.endsWith(`=${GOOD_MATCH_ID}`) ?
       Promise.resolve(JSON.stringify(MATCH_DETAILS)) :

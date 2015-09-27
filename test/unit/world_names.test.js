@@ -6,7 +6,7 @@ const WORLDS = [
   { id: 42, name: 'galaxy' }
 ];
 
-var world_names = proxyquire('../lib/server/gw2/world_names', {
+var world_names = proxyquire('../../lib/server/gw2/world_names', {
   '../utils/ajax': () => Promise.resolve(JSON.stringify(WORLDS))
 });
 
