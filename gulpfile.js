@@ -9,7 +9,7 @@ var nodemon = require('gulp-nodemon');
 var path = {
   js: ['lib/**/*.js', 'test/**/*.js', 'gulpfile.js'],
   unittests: ['test/unit/**/*.test.js'],
-  itests: ['test/itest/**/*.test.js']
+  itests: ['test/itest/**/*.itest.js']
 };
 
 gulp.task('default', ['test']);
