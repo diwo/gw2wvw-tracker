@@ -14,18 +14,22 @@ describe('world_names.getName()', () => {
   it('Resolves to world name given a known ID', done => {
     world_names.getName(42)
       .then(
-        name => { expect(name).toBe('galaxy'); },
-        error => { expect(error).toBeUndefined(); }
-      )
-      .then(done);
+        name => {
+          expect(name).toBe('galaxy');
+          done();
+        },
+        () => { done.fail('Rejected instead of resolve'); }
+      );
   });
 
   it('Resolves to undefined when ID is not found', done => {
     world_names.getName(666)
       .then(
-        name => { expect(name).toBeUndefined(); },
-        error => { expect(error).toBeUndefined(); }
-      )
-      .then(done);
+        name => {
+          expect(name).toBeUndefined();
+          done();
+        },
+        () => { done.fail('Rejected instead of resolve'); }
+      );
   });
 });

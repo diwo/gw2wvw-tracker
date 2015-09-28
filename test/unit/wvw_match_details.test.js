@@ -38,16 +38,16 @@ describe('wvw_match_details.summary(matchId)', () => {
             blue: { name: 'Sapphire', score: 222 },
             green: { name: 'Emerald', score: 333 }
           });
+          done();
         },
-        error => { expect(error).toBeUndefined(); }
-      )
-      .then(done);
+        () => { done.fail('Rejected instead of resolve'); }
+      );
   });
 
   it('Rejects when the given match ID cannot be found', done => {
     wvw_match_details.summary('match#404')
       .then(
-        () => { done.fail('ajax() resolved instead of reject'); },
+        () => { done.fail('Resolved instead of reject'); },
         () => { done(); }
       );
   });

@@ -42,10 +42,10 @@ describe('wvw_matches.list()', () => {
           expect(matches[0].red_world).toBe('Ruby');
           expect(matches[0].blue_world).toBe('Sapphire');
           expect(matches[0].green_world).toBe('Emerald');
+          done();
         },
-        error => { expect(error).toBeUndefined(); }
-      )
-      .then(done);
+        () => { done.fail('Rejected instead of resolve'); }
+      );
   });
 });
 
@@ -53,17 +53,22 @@ describe('wvw_matches.get(matchId)', () => {
   it('Resolves to a single match with the given match ID', done => {
     wvw_matches.get('2-3')
       .then(
-        match => { expect(match.wvw_match_id).toBe('2-3'); },
-        error => { expect(error).toBeUndefined(); }
-      )
-      .then(done);
+        match => {
+          expect(match.wvw_match_id).toBe('2-3');
+          done();
+        },
+        () => { done.fail('Rejected instead of resolve'); }
+      );
   });
 
   it('Resolves to undefined when the given ID cannot be found', done => {
     wvw_matches.get('derp')
       .then(
-        match => { expect(match).toBeUndefined(); },
-        error => { expect(error).toBeUndefined(); }
+        match => {
+          expect(match).toBeUndefined();
+          done();
+        },
+        () => { done.fail('Rejected instead of resolve'); }
       )
       .then(done);
   });

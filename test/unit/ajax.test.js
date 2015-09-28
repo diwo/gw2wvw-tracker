@@ -51,27 +51,33 @@ describe('ajax()', () => {
   it('Resolves to response body when request is successful', done => {
     ajax(URLs.ok)
       .then(
-        body => { expect(body).toBe(RESPONSE.ok.body); },
-        error => { expect(error).toBeUndefined(); }
-      )
-      .then(done);
+        body => {
+          expect(body).toBe(RESPONSE.ok.body);
+          done();
+        },
+        () => { done.fail('Rejected instead of resolve'); }
+      );
   });
 
   it('Rejects with status code when request url is not found', done => {
     ajax(URLs.notFound)
       .then(
-        () => { done.fail('ajax() resolved instead of reject'); },
-        statusCode => { expect(statusCode).toBe(RESPONSE.notFound.statusCode); }
-      )
-      .then(done);
+        () => { done.fail('Resolved intead of reject'); },
+        statusCode => {
+          expect(statusCode).toBe(RESPONSE.notFound.statusCode);
+          done();
+        }
+      );
   });
 
   it('Rejects with error when request is failure', done => {
     ajax(URLs.failure)
       .then(
-        () => { done.fail('ajax() resolved instead of reject'); },
-        error => { expect(error).toBe(RESPONSE.failure.error); }
-      )
-      .then(done);
+        () => { done.fail('Resolved instead of reject'); },
+        error => {
+          expect(error).toBe(RESPONSE.failure.error);
+          done();
+        }
+      );
   });
 });

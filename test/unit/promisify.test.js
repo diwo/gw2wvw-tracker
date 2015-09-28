@@ -31,9 +31,11 @@ describe('The promise returned by promisify(obj, fn, args...)', () => {
     promisify(o, fn)
       .then(
         () => { done.fail('Resolved instead of reject'); },
-        rejVal => { expect(rejVal).toBe(ERROR); }
-      )
-      .then(done);
+        rejVal => {
+          expect(rejVal).toBe(ERROR);
+          done();
+        }
+      );
   });
 
   it('Resolves to data if cb(err, data) is called and err is not truthy', done => {
@@ -42,9 +44,11 @@ describe('The promise returned by promisify(obj, fn, args...)', () => {
 
     promisify(o, fn)
       .then(
-        resVal => { expect(resVal).toBe(DATA); },
+        resVal => {
+          expect(resVal).toBe(DATA);
+          done();
+        },
         () => { done.fail('Rejected instead of resolve'); }
-      )
-      .then(done);
+      );
   });
 });
