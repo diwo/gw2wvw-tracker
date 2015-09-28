@@ -7,22 +7,15 @@ describe('mongo insert and find operations', () => {
     var execution = mongo.execute(db => {
       var testCollection = db.collection('testdocs');
 
-      return mongo.remove(testCollection)
-        .then(() => mongo.insert(
-          testCollection, [
-            { x: 1 }, { x: 2 }, { x: 3 }
-          ]
-        ))
-        .then(result => {
-          expect(result.result.n).toBe(3);
-        })
-        .then(() => mongo.fetch(
-          testCollection.find({ x: { $gte: 2 } })
-        ))
-        .then(result => {
-          expect(result.length).toBe(2);
-        })
-        .then(() => mongo.remove(testCollection));
+      return testCollection.deleteMany({})
+        .then(() => testCollection.insertMany([
+          { x: 1 }, { x: 2 }, { x: 3 }
+        ]))
+        .then(result => { expect(result.result.n).toBe(3); })
+        .then(() => testCollection.find({ x: { $gte: 2 } }))
+        .then(cursor => cursor.toArray())
+        .then(result => { expect(result.length).toBe(2); })
+        .then(() => testCollection.deleteMany({}));
     });
 
     execution.then(
