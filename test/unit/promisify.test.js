@@ -20,8 +20,8 @@ describe('The promise returned by promisify(obj, fn, args...)', () => {
 
     promisify(o, fn, 1, 2, 3);
 
-    expect(fn.calledOn(o)).toBeTruthy();
-    expect(fn.calledWith(1, 2, 3)).toBeTruthy();
+    sinon.assert.calledOn(fn, o);
+    sinon.assert.calledWith(fn, 1, 2, 3);
   });
 
   it('Rejects with err if cb(err) and err is truthy', done => {
@@ -30,12 +30,10 @@ describe('The promise returned by promisify(obj, fn, args...)', () => {
 
     promisify(o, fn)
       .then(
-        () => { done.fail('Resolved instead of reject'); },
-        rejVal => {
-          expect(rejVal).toBe(ERROR);
-          done();
-        }
-      );
+        () => { throw 'Resolved instead of reject'; },
+        rejVal => { expect(rejVal).toBe(ERROR); }
+      )
+      .then(done, done.fail);
   });
 
   it('Resolves to data if cb(err, data) is called and err is not truthy', done => {
@@ -43,12 +41,9 @@ describe('The promise returned by promisify(obj, fn, args...)', () => {
     var fn = function(cb) { cb(null, DATA); };
 
     promisify(o, fn)
-      .then(
-        resVal => {
-          expect(resVal).toBe(DATA);
-          done();
-        },
-        () => { done.fail('Rejected instead of resolve'); }
-      );
+      .then(resVal => {
+        expect(resVal).toBe(DATA);
+      })
+      .then(done, done.fail);
   });
 });

@@ -23,7 +23,7 @@ const RESPONSE = {
   }
 };
 
-const AJAX_DELAY = 200;
+const AJAX_DELAY = 0;
 
 var ajax = proxyquire('../../lib/server/utils/ajax', {
   request: function(url, cb) {
@@ -50,34 +50,31 @@ var ajax = proxyquire('../../lib/server/utils/ajax', {
 describe('ajax()', () => {
   it('Resolves to response body when request is successful', done => {
     ajax(URLs.ok)
-      .then(
-        body => {
-          expect(body).toBe(RESPONSE.ok.body);
-          done();
-        },
-        () => { done.fail('Rejected instead of resolve'); }
-      );
+      .then(body => {
+        expect(body).toBe(RESPONSE.ok.body);
+      })
+      .then(done, done.fail);
   });
 
   it('Rejects with status code when request url is not found', done => {
     ajax(URLs.notFound)
       .then(
-        () => { done.fail('Resolved intead of reject'); },
+        () => { throw 'Resolved intead of reject'; },
         statusCode => {
           expect(statusCode).toBe(RESPONSE.notFound.statusCode);
-          done();
         }
-      );
+      )
+      .then(done, done.fail);
   });
 
   it('Rejects with error when request is failure', done => {
     ajax(URLs.failure)
       .then(
-        () => { done.fail('Resolved instead of reject'); },
+        () => { throw 'Resolved instead of reject'; },
         error => {
           expect(error).toBe(RESPONSE.failure.error);
-          done();
         }
-      );
+      )
+      .then(done, done.fail);
   });
 });

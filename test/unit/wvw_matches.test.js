@@ -37,39 +37,29 @@ var wvw_matches = proxyquire('../../lib/server/gw2/wvw_matches', {
 describe('wvw_matches.list()', () => {
   it('Resolves to matches containing names for red/blue/green worlds', done => {
     wvw_matches.list()
-      .then(
-        matches => {
-          expect(matches[0].red_world).toBe('Ruby');
-          expect(matches[0].blue_world).toBe('Sapphire');
-          expect(matches[0].green_world).toBe('Emerald');
-          done();
-        },
-        () => { done.fail('Rejected instead of resolve'); }
-      );
+      .then(matches => {
+        expect(matches[0].red_world).toBe('Ruby');
+        expect(matches[0].blue_world).toBe('Sapphire');
+        expect(matches[0].green_world).toBe('Emerald');
+      })
+      .then(done, done.fail);
   });
 });
 
 describe('wvw_matches.get(matchId)', () => {
   it('Resolves to a single match with the given match ID', done => {
     wvw_matches.get('2-3')
-      .then(
-        match => {
-          expect(match.wvw_match_id).toBe('2-3');
-          done();
-        },
-        () => { done.fail('Rejected instead of resolve'); }
-      );
+      .then(match => {
+        expect(match.wvw_match_id).toBe('2-3');
+      })
+      .then(done, done.fail);
   });
 
   it('Resolves to undefined when the given ID cannot be found', done => {
     wvw_matches.get('derp')
-      .then(
-        match => {
-          expect(match).toBeUndefined();
-          done();
-        },
-        () => { done.fail('Rejected instead of resolve'); }
-      )
-      .then(done);
+      .then(match => {
+        expect(match).toBeUndefined();
+      })
+      .then(done, done.fail);
   });
 });

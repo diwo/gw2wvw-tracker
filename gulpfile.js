@@ -24,14 +24,20 @@ gulp.task('lint', () =>
 
 gulp.task('unittest', () =>
   gulp.src(path.unittests)
-    .pipe(jasmine())
+    .pipe(jasmine({
+      timeout: 2000,
+      verbose: true
+    }))
 );
 
 // Can't run concurrently with `unittest` due to gulp-jasmine bug
 // https://github.com/sindresorhus/gulp-jasmine/issues/42
 gulp.task('itest', () =>
   gulp.src(path.itests)
-    .pipe(jasmine())
+    .pipe(jasmine({
+      timeout: 2000,
+      verbose: true
+    }))
 );
 
 gulp.task('nodemon', () => {

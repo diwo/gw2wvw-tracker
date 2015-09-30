@@ -8,7 +8,9 @@ describe('match details add and getLast', () => {
       .then(() => match_details_store.add({ 'match_id': 1, n: 2 }))
       .then(() => match_details_store.add({ 'match_id': 2, n: 3 }))
       .then(() => match_details_store.getLast(1))
-      .then(details => { expect(details.n).toBe(2); })
+      .then(details => {
+        expect(details.n).toBe(2);
+      })
       .then(done, done.fail);
   });
 });
