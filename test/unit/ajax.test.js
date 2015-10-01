@@ -47,7 +47,7 @@ var ajax = proxyquire('../../lib/server/utils/ajax', {
   }
 });
 
-describe('ajax()', () => {
+describe('ajax function', () => {
   it('Resolves to response body when request is successful', done => {
     ajax(URLs.ok)
       .then(body => {

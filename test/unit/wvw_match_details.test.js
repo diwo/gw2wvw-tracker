@@ -45,29 +45,31 @@ var stubMatchDetails = stub => {
   });
 };
 
-describe('wvw_match_details.summary(matchId)', () => {
+describe('wvw_match_details module', () => {
   var wvw_match_details = stubMatchDetails(STUB);
 
-  it('Resolves to an object with name and score for each of red/blue/green worlds', done => {
-    wvw_match_details.summary(STUB.VALID_MATCH_ID)
-      .then(
-        summary => {
-          expect(summary).toEqual({
-            red: { name: 'Ruby', score: 111 },
-            blue: { name: 'Sapphire', score: 222 },
-            green: { name: 'Emerald', score: 333 }
-          });
-        }
-      )
-      .then(done, done.fail);
-  });
+  describe('summary(matchId) method', () => {
+    it('Resolves to an object with name and score for each of red/blue/green worlds', done => {
+      wvw_match_details.summary(STUB.VALID_MATCH_ID)
+        .then(
+          summary => {
+            expect(summary).toEqual({
+              red: { name: 'Ruby', score: 111 },
+              blue: { name: 'Sapphire', score: 222 },
+              green: { name: 'Emerald', score: 333 }
+            });
+          }
+        )
+        .then(done, done.fail);
+    });
 
-  it('Rejects when the given match ID cannot be found', done => {
-    wvw_match_details.summary('match#404')
-      .then(
-        () => { done.fail('Resolved instead of reject'); },
-        () => { done(); }
-      );
+    it('Rejects when the given match ID cannot be found', done => {
+      wvw_match_details.summary('match#404')
+        .then(
+          () => { done.fail('Resolved instead of reject'); },
+          () => { done(); }
+        );
+    });
   });
 
   describe('Fetching match details from datastore', () => {

@@ -6,38 +6,37 @@ var jshint = require('gulp-jshint');
 var jasmine = require('gulp-jasmine');
 var nodemon = require('gulp-nodemon');
 
-var path = {
+const PATH = {
   js: ['lib/**/*.js', 'test/**/*.js', 'gulpfile.js'],
   unittests: ['test/unit/**/*.test.js'],
   itests: ['test/itest/**/*.itest.js']
+};
+
+const JASMINE_CONFIG = {
+  timeout: 2000,
+  verbose: false
 };
 
 gulp.task('default', ['test']);
 gulp.task('test', ['lint', 'unittest']);
 
 gulp.task('lint', () =>
-  gulp.src(path.js)
+  gulp.src(PATH.js)
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
     .pipe(jshint.reporter('fail'))
 );
 
 gulp.task('unittest', () =>
-  gulp.src(path.unittests)
-    .pipe(jasmine({
-      timeout: 2000,
-      verbose: true
-    }))
+  gulp.src(PATH.unittests)
+    .pipe(jasmine(JASMINE_CONFIG))
 );
 
 // Can't run concurrently with `unittest` due to gulp-jasmine bug
 // https://github.com/sindresorhus/gulp-jasmine/issues/42
 gulp.task('itest', () =>
-  gulp.src(path.itests)
-    .pipe(jasmine({
-      timeout: 2000,
-      verbose: true
-    }))
+  gulp.src(PATH.itests)
+    .pipe(jasmine(JASMINE_CONFIG))
 );
 
 gulp.task('nodemon', () => {
